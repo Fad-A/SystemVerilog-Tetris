@@ -7,9 +7,13 @@
 // direction: 00 -> No movement, 01 -> left, 10 -> Down, 11 -> Right
 // Outputs: 
 // screen: 10x20 array of displayed 
-Module tetris(input logic rotate[1:0], input logic direction[1:0], input logic reset,
-              input logic start, output logic[399:0] screen);
+Module tetris(input logic[19:0][9:0] inputScreen, input logic rotate[1:0], input logic direction[1:0], input logic reset,
+              input logic start, output logic[19:0][9:0] screen);
 
+
+endmodule
+
+module 
 
 endmodule
 // module part1(input logic [3:0] a, b, input logic c_in,
