@@ -68,6 +68,7 @@ endmodule
 module moveDown(input shapeStruct shape, input logic [19:0][9:0] screen, input logic clk, moveSignal,
                  output logic [19:0][9:0] outputScreen, output shapeStruct outputShape);
     logic atEdge;
+    logic space; // 1-> theres space, 0-> theres no space
     logic [19:0][9:0] nextOutput
     always_comb
     begin  
@@ -75,12 +76,16 @@ module moveDown(input shapeStruct shape, input logic [19:0][9:0] screen, input l
         if (!atEdge) begin
             nextOutput = screen 
             nextOutput[shape.shapeRowPos +:4] = nextOutput[shape.shapeRowPos +:4] ^ shape.shape; // Remove current shape from 
-            nextOutput[shape.shapeRowPos +:4] = nextOutput[shape.shapeRowPos-1 +:4] | shape.shape; // add it back 
+            // Xor the nextOutput with the game, if it replaces only zeros then anding it with shape should return 0.
+            noSpace = ((nextOutput[shape.shapeRowPos-1 +:4] ^ shape.shape) & shape.shape) == shape.shape;
+
+            // Add shape
+            nextOutput[shape.shapeRowPos-1 +:4] = nextOutput[shape.shapeRowPos-1 +:4] | shape.shape; // add shape moved down
         end
         
     end
     always_ff @(posedge clk) begin
-        if(!moveSignal | atEdge) begin
+        if(!moveSignal | atEdge | noSpace) begin
             output <= screen;
             outputShape <= shape;
         end 
