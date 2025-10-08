@@ -4,7 +4,8 @@ typedef struct packed {
 } shapeStruct;
 
 // Take the shape and move it to the down on the screen.
-module moveDown(input shapeStruct shape, input logic [19:0][9:0] screen, input logic clk, moveSignal,
+module moveDown import shape_pkg::*;
+                (input shapeStruct shape, input logic [19:0][9:0] screen, input logic clk, moveSignal,
                  output logic [19:0][9:0] outputScreen, output shapeStruct outputShape);
     logic atEdge; // 1-> at edge -> do nothing, 0 -> you may move
     logic space; // 1-> theres space, 0-> theres no space
@@ -36,7 +37,8 @@ module moveDown(input shapeStruct shape, input logic [19:0][9:0] screen, input l
 endmodule 
 
 // Take the shape and move it to the right on the screen.
-module moveRight(input shapeStruct shape, input logic [19:0][9:0] screen, input logic clk, moveSignal,
+module moveRight import shape_pkg::*;
+                (input shapeStruct shape, input logic [19:0][9:0] screen, input logic clk, moveSignal,
                  output logic [19:0][9:0] outputScreen, output shapeStruct outputShape);
     logic atEdge, space;
     shapeStruct [3:0][9:0] shapeShifted;
@@ -68,7 +70,8 @@ module moveRight(input shapeStruct shape, input logic [19:0][9:0] screen, input 
 endmodule 
 
 // Take the shape and move it to the left on the screen.
-module moveLeft(input shapeStruct shape, input logic [19:0][9:0] screen, input logic clk, moveSignal,
+module moveLeft import shape_pkg::*;
+                (input shapeStruct shape, input logic [19:0][9:0] screen, input logic clk, moveSignal,
                  output logic [19:0][9:0] outputScreen, output shapeStruct outputShape);
     logic atEdge, space;
     shapeStruct [3:0][9:0] shapeShifted;
